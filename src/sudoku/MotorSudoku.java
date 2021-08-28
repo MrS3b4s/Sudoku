@@ -63,7 +63,7 @@ public class MotorSudoku {
         }
         */
         
-        while (this.getCasillasLlenas()<60){
+        while (this.getCasillasLlenas()<42){
             num = (int) (Math.floor(Math.random() * 9 + 1));
             int[] posicion = this.generarPosicion();
             System.out.println(num + "[" + posicion[0] + "][" + posicion[1] + "]");
