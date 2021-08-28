@@ -13,6 +13,15 @@ public class MotorSudoku {
 
     private String[][] tablero = new String[9][9];
     private int casillasLlenas = 0;
+    private int[] listaNumeros = new int[9];
+
+    public int[] getListaNumeros() {
+        return listaNumeros;
+    }
+
+    public void setListaNumeros(int[] listaNumeros) {
+        this.listaNumeros = listaNumeros;
+    }
 
     public int getCasillasLlenas() {
         return casillasLlenas;
@@ -33,6 +42,10 @@ public class MotorSudoku {
     public MotorSudoku() {
         this.llenarTablero();
         System.out.println("Casillas llenas: " + this.getCasillasLlenas());
+        for (int i = 0; i < 9; i++) {
+            System.out.println(this.getListaNumeros()[i]);
+            
+        }
     }
 
     public void mostrarTablero() {
@@ -61,24 +74,113 @@ public class MotorSudoku {
                this.setCasillasLlenas(this.getCasillasLlenas() + 1);
            }
         }
-        */
-        
-        while (this.getCasillasLlenas()<42){
+         */
+
+        while (this.getCasillasLlenas() < 81) {
             num = (int) (Math.floor(Math.random() * 9 + 1));
             int[] posicion = this.generarPosicion();
-            System.out.println(num + "[" + posicion[0] + "][" + posicion[1] + "]");
 
-            if(!this.isNumInRow(String.valueOf(num), posicion[0]) &&
-               !this.isNumInCol(String.valueOf(num), posicion[1]) &&
-               !this.identificarCuadrante(String.valueOf(num), posicion[0], posicion[1])){
-                
-                this.getTablero()[posicion[0]][posicion[1]] = String.valueOf(num);
-                this.setCasillasLlenas(this.getCasillasLlenas() + 1);
+            if (!this.isNumInRow(String.valueOf(num), posicion[0])
+                    && !this.isNumInCol(String.valueOf(num), posicion[1])
+                    && !this.identificarCuadrante(String.valueOf(num), posicion[0], posicion[1])) {
+                if (this.indentificarNum(num) < 9){
+                    this.getTablero()[posicion[0]][posicion[1]] = String.valueOf(num);
+                    this.setCasillasLlenas(this.getCasillasLlenas() + 1);
+                    this.contador(num);
+                    this.mostrarTablero();
+                }
+               
             }
         }
-       
+
     }
     
+    public void contador(int num){
+        int[] lista = this.getListaNumeros();
+
+        switch (num) {
+            
+            case 1:
+                num--;
+                lista[num]++;
+                break;
+            case 2:
+                num--;
+                lista[num]++;
+                break;
+            case 3:
+                num--;
+                lista[num]++;
+                break;
+            case 4:
+                num--;
+                lista[num]++;
+                break;
+            case 5:
+                num--;
+                lista[num]++;
+                break;
+            case 6:
+                num--;
+                lista[num]++;
+                break;
+            case 7:
+                num--;
+                lista[num]++;
+                break;
+            case 8:
+                num--;
+                lista[num]++;
+                break;
+            case 9:
+                num--;
+                lista[num]++;
+                break;
+            
+        }
+        
+        this.setListaNumeros(lista);
+    }
+    
+    public int indentificarNum(int num){
+        int[] lista = this.getListaNumeros();
+
+        switch (num) {
+            
+            case 1:
+                num--;
+                return lista[num];
+            case 2:
+                num--;
+                return lista[num];
+            case 3:
+                num--;
+                return lista[num];
+            case 4:
+                num--;
+                return lista[num];
+            case 5:
+                num--;
+                return lista[num];
+            case 6:
+                num--;
+                return lista[num];
+            case 7:
+                num--;
+                return lista[num];
+            case 8:
+                num--;
+                return lista[num];
+            case 9:
+                num--;
+                return lista[num];
+            default:
+                return 0;
+        }
+        
+
+    }
+
     /*
     
     private void llenarTablero() {
@@ -99,8 +201,7 @@ public class MotorSudoku {
         }
 
     }
-    */
-
+     */
     private void llenarTableroCeros() {
 
         for (int f = 0; f < 9; f++) {
@@ -138,74 +239,70 @@ public class MotorSudoku {
 
     private boolean identificarCuadrante(String num, int f, int c) {
         if ((f >= 0 && f <= 2) && (c >= 0 && c <= 2)) {
-            System.out.println("Cuadrante 1 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 1 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 0, 0);
         } else if ((f >= 0 && f <= 2) && (c >= 3 && c <= 5)) {
-            System.out.println("Cuadrante 2 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 2 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 0, 3);
         } else if ((f >= 0 && f <= 2) && (c >= 6 && c <= 8)) {
-            System.out.println("Cuadrante 3 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 3 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 0, 6);
         } else if ((f >= 3 && f <= 5) && (c >= 0 && c <= 2)) {
-            System.out.println("Cuadrante 4 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 4 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 3, 0);
         } else if ((f >= 3 && f <= 5) && (c >= 3 && c <= 5)) {
-            System.out.println("Cuadrante 5 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 5 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 3, 3);
         } else if ((f >= 3 && f <= 5) && (c >= 6 && c <= 8)) {
-            System.out.println("Cuadrante 6 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 6 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 3, 6);
         } else if ((f >= 6 && f <= 8) && (c >= 0 && c <= 2)) {
-            System.out.println("Cuadrante 7 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 7 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 6, 0);
         } else if ((f >= 6 && f <= 8) && (c >= 3 && c <= 5)) {
-            System.out.println("Cuadrante 8 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 8 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 6, 3);
         } else if ((f >= 6 && f <= 8) && (c >= 6 && c <= 8)) {
-            System.out.println("Cuadrante 9 ["+f+"]["+c+"]:" + num);
+            System.out.println("Cuadrante 9 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 6, 6);
         }
 
         return false;
     }
-    
-    private boolean isNumInCuadrante(String num,int f, int c){
+
+    private boolean isNumInCuadrante(String num, int f, int c) {
         String[][] t = this.getTablero();
         int i = f;
         int j = c;
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                System.out.print("["+String.valueOf(i)+String.valueOf(j)+"]");
-                if(t[i][j] == null ? (num) == null : t[i][j].equals(num)){
+                if (t[i][j] == null ? (num) == null : t[i][j].equals(num)) {
                     return true;
                 }
                 j++;
             }
-            System.out.println();
             j = c;
             i++;
         }
         return false;
     }
-    
-    private boolean mostrarCuadrante(String num,int f, int c){
+
+    private boolean mostrarCuadrante(String num, int f, int c) {
         String[][] t = this.getTablero();
         int i = f;
         int j = c;
         for (int y = 0; y < 3; y++) {
             for (int x = 0; x < 3; x++) {
-                System.out.print("["+String.valueOf(i)+String.valueOf(j)+"]");
+                System.out.print("[" + String.valueOf(i) + String.valueOf(j) + "]");
                 j++;
             }
             System.out.println();
             j = c;
             i++;
         }
-           
-            
+
         return false;
     }
-    
 
     //Busca una posición vacía(null) en la matriz y retorna la fila y columna en un arreglo de 2 enteros.
     private int[] generarPosicion() {
@@ -228,7 +325,8 @@ public class MotorSudoku {
     public static void main(String[] args) {
         MotorSudoku motor = new MotorSudoku();
         motor.mostrarTablero();
-        motor.identificarCuadrante("1", 6,6);
+        motor.identificarCuadrante("1", 6, 6);
+        
         /*
 
         
