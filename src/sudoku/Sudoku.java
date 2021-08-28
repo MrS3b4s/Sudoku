@@ -5,6 +5,8 @@
  */
 package sudoku;
 
+import sudoku.GUI.GUI_Tablero;
+
 /**
  *
  * @author matoc
@@ -15,7 +17,13 @@ public class Sudoku {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GUI_Tablero().setVisible(true);
+            }
+        });
+        
+        
     }
     
     
