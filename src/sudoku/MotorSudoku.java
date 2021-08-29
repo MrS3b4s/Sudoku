@@ -41,14 +41,18 @@ public class MotorSudoku {
 
     public MotorSudoku() {
         this.llenarTablero();
-        System.out.println("Casillas llenas: " + this.getCasillasLlenas());
-        for (int i = 0; i < 9; i++) {
-            System.out.println(this.getListaNumeros()[i]);
-            
-        }
+ 
+    }
+    
+    public MotorSudoku(String[][] tablero) {
+        this.setTablero(tablero);
+ 
     }
 
     public void mostrarTablero() {
+        
+        System.out.println("");
+        System.out.println("Tablero: ");
         for (int f = 0; f < 9; f++) {
             for (int c = 0; c < 9; c++) {
                 System.out.print("[" + tablero[f][c] + "]");
@@ -60,23 +64,13 @@ public class MotorSudoku {
     //Llena la matriz con 42 numeros aleatorios, siempre en posiciones vacias.
     private void llenarTablero() {
         int num;
-        int facil = 42;
-        /*
-        for (int i = 0; i < 42; i++) {
-            num = (int) (Math.floor(Math.random() * 9 + 1));
-            int[] posicion = this.generarPosicion();
-            System.out.println(num + "[" + posicion[0] + "][" + posicion[1] + "]");
+        int facil = 38;
+        int media = 32;
+        int dificil = 25;
+        int experto = 23;
+        
 
-           if(!this.isNumInRow(String.valueOf(num), posicion[0]) &&
-              !this.isNumInCol(String.valueOf(num), posicion[1]) &&
-              !this.identificarCuadrante(String.valueOf(num), posicion[0], posicion[1])){
-               this.getTablero()[posicion[0]][posicion[1]] = String.valueOf(num);
-               this.setCasillasLlenas(this.getCasillasLlenas() + 1);
-           }
-        }
-         */
-
-        while (this.getCasillasLlenas() < 60) {
+        while (this.getCasillasLlenas() < 23) {
             num = (int) (Math.floor(Math.random() * 9 + 1));
             int[] posicion = this.generarPosicion();
 
@@ -87,10 +81,17 @@ public class MotorSudoku {
                     this.getTablero()[posicion[0]][posicion[1]] = String.valueOf(num);
                     this.setCasillasLlenas(this.getCasillasLlenas() + 1);
                     this.contador(num);
-                    this.mostrarTablero();
                 }
                
             }
+        }
+        
+       
+        if(this.solucionarSudoku()){
+            System.out.println("Tablero listo: ");
+        } else {
+            this.setTablero(new String[9][9]);
+            this.llenarTablero();
         }
 
     }
@@ -212,7 +213,36 @@ public class MotorSudoku {
         }
 
     }
+    
+    private boolean solucionarSudoku(){
+       
+        for (int f = 0; f < 9; f++) {
+            for (int c = 0; c < 9; c++) {
+                if(this.getTablero()[f][c] == null){
+                    
+                    for (int i = 1; i <= 9; i++) {
+                        if(this.validarNumero(String.valueOf(i), f, c)){
+                            System.out.println("El numero: "+i+" es valido en la posición ["+f+""+c+"");
+                            this.tablero[f][c] = String.valueOf(i);
+                            if(this.solucionarSudoku()){
+                                return true;
+                            } else {
+                                this.getTablero()[f][c] = null;
+                            }
+                        }
+                    }
+                    return false;
+                   
+                }
+            }
+        }
+        
+        return true;
+    }
 //Validaciones: Filas, Columnas y Cuadrantes -----------------------------------
+    private boolean validarNumero(String num, int f, int c){
+        return !this.isNumInRow(num, f) && !this.isNumInCol(num, c) && !this.identificarCuadrante(num, f, c);
+    }
     private boolean isNumInRow(String num, int f) {
         String[][] t = this.getTablero();
 
@@ -315,9 +345,22 @@ public class MotorSudoku {
     }
 
     public static void main(String[] args) {
+        String[][] t = {
+            {"4","6","9",null,null,null,null,null,"2"},  
+            {"7",null,null,"2","8",null,null,"9","6"},  
+            {"2","8","1","3","9","6",null,"4",null},  
+            {"8","7",null,"5",null,"9","6",null,null},  
+            {"6",null,null,"8",null,null,null,null,null},  
+            {"5","1",null,null,"7",null,"9","8","4"},  
+            {null,"2","6",null,null,null,null,"7","8"},  
+            {null,null,null,null,"2",null,"5",null,null},  
+            {"1",null,null,null,null,null,"4","2",null},  
+        };
+        
         MotorSudoku motor = new MotorSudoku();
         motor.mostrarTablero();
-        motor.identificarCuadrante("1", 6, 6);
+
+        
         
         /*
 
