@@ -76,7 +76,7 @@ public class MotorSudoku {
         }
          */
 
-        while (this.getCasillasLlenas() < 81) {
+        while (this.getCasillasLlenas() < 60) {
             num = (int) (Math.floor(Math.random() * 9 + 1));
             int[] posicion = this.generarPosicion();
 
@@ -212,7 +212,7 @@ public class MotorSudoku {
         }
 
     }
-
+//Validaciones: Filas, Columnas y Cuadrantes -----------------------------------
     private boolean isNumInRow(String num, int f) {
         String[][] t = this.getTablero();
 
@@ -239,31 +239,22 @@ public class MotorSudoku {
 
     private boolean identificarCuadrante(String num, int f, int c) {
         if ((f >= 0 && f <= 2) && (c >= 0 && c <= 2)) {
-            System.out.println("Cuadrante 1 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 0, 0);
         } else if ((f >= 0 && f <= 2) && (c >= 3 && c <= 5)) {
-            System.out.println("Cuadrante 2 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 0, 3);
         } else if ((f >= 0 && f <= 2) && (c >= 6 && c <= 8)) {
-            System.out.println("Cuadrante 3 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 0, 6);
         } else if ((f >= 3 && f <= 5) && (c >= 0 && c <= 2)) {
-            System.out.println("Cuadrante 4 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 3, 0);
         } else if ((f >= 3 && f <= 5) && (c >= 3 && c <= 5)) {
-            System.out.println("Cuadrante 5 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 3, 3);
         } else if ((f >= 3 && f <= 5) && (c >= 6 && c <= 8)) {
-            System.out.println("Cuadrante 6 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 3, 6);
         } else if ((f >= 6 && f <= 8) && (c >= 0 && c <= 2)) {
-            System.out.println("Cuadrante 7 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 6, 0);
         } else if ((f >= 6 && f <= 8) && (c >= 3 && c <= 5)) {
-            System.out.println("Cuadrante 8 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 6, 3);
         } else if ((f >= 6 && f <= 8) && (c >= 6 && c <= 8)) {
-            System.out.println("Cuadrante 9 [" + f + "][" + c + "]:" + num);
             return this.isNumInCuadrante(num, 6, 6);
         }
 
@@ -286,6 +277,7 @@ public class MotorSudoku {
         }
         return false;
     }
+//------------------------------------------------------------------------------
 
     private boolean mostrarCuadrante(String num, int f, int c) {
         String[][] t = this.getTablero();
